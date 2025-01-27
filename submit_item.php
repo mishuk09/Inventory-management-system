@@ -1,6 +1,6 @@
 <?php
 // Include the database connection file
-include('../config/config.php'); // Ensure this is the correct path
+include('./config/config.php'); // Ensure this is the correct path
 
 // Check if the form was submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

@@ -1,6 +1,6 @@
 <?php
 // update_item.php
-include('../config/config.php'); // Include the database connection
+include('./config.php'); // Include the database connection
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $assetId = $_POST['asset_id'];

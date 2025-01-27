@@ -3,7 +3,7 @@
 session_start();
 
 // Include the database connection file
-include('../config/config.php'); // Ensure this is the correct path
+include('./config/config.php'); // Ensure this is the correct path
 
 // Define success message variable
 $successMessage = "";

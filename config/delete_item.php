@@ -1,6 +1,6 @@
 <?php
 // delete_item.php
-include('../config/config.php'); // Include the database connection
+include('./config.php'); // Include the database connection
 
 if (isset($_GET['asset_id'])) {
     $assetId = $_GET['asset_id'];

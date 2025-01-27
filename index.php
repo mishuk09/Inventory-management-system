@@ -5,7 +5,7 @@
 session_start();
 
 // Include the database connection file
-include('../config/config.php'); // Adjust the path if needed
+include('./config/config.php'); // Adjust the path if needed
 
 // Query to fetch assets from the database
 $query = "SELECT * FROM assets";
@@ -115,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search_query'])) {
 <body class="bg-gray-100">
 
     <!-- Main container -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
 
         <!-- Heading -->
         <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Inventory Management Dashboard</h1>
@@ -176,7 +176,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search_query'])) {
                                 </button>
                             </form>
                             <div id="searchResults"
-                                class="mt-4 w-[350px] rounded cursor-pointer text-gray-600 bg-white shadow-md p-2 absolute">
+                                class="mt-4 w-[350px] rounded cursor-pointer text-gray-600 bg-white shadow-md px-2 absolute">
                             </div>
                         </div>
 
