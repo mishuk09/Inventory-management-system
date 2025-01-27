@@ -62,6 +62,31 @@ if (isset($_POST['delete_item'])) {
     exit();
 }
 
+//search functionality
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search_query'])) {
+    $search_query = mysqli_real_escape_string($conn, $_POST['search_query']);
+
+    // Query the database to match `modal` field data
+    $query = "SELECT * FROM assets WHERE model LIKE '%$search_query%'";
+    $result = mysqli_query($conn, $query);
+
+    // Return the search results
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo "<div class='border-b py-2'>"; // Customize result layout
+            echo "<strong>Modal:</strong> " . htmlspecialchars($row['model']) . "<br>";
+            echo "<strong>Category:</strong> " . htmlspecialchars($row['category']) . "<br>";
+            echo "<strong>Serial:</strong> " . htmlspecialchars($row['serial_number']);
+            echo "</div>";
+        }
+    } else {
+        echo "<div class='text-gray-500'>No results found</div>";
+    }
+    exit; // Ensure no additional output is sent back
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -125,24 +150,40 @@ if (isset($_POST['delete_item'])) {
                         </div>
 
                         <!-- Search Item Button -->
-                        <div
+                        <!-- <div
                             class=" bg-white rounded  text-blue-600  font-semibold border border-blue-500 hover:border-blue-600  px-2  w-[350px] py-2">
 
+                            <form method="GET" action="index.php" class="flex w-full">
+                                <input type="text" name="search_query" placeholder="Search assets..."
+                                    class="border rounded h-8 px-2 w-full">
+                                <button type="submit" class="bg-blue-600 text-white px-4 ml-2 rounded">Search</button>
+                            </form>
 
 
-                            <div class="flex  w-full ">
+                        </div> -->
 
-                                <div class="w-full h-fullflex items-center justify-center">
-                                    <input class="border-1 border-blue-500 rounded   h-8 outline-none focus-none px-1"
-                                        type="text" placeholder="Search">
-                                </div>
-                                <div class="flex w-full justify-end">
 
-                                    <button
-                                        class="border-1 border-blue-500 rounded  bg-blue-600 px-2 text-white text-sm h-full outline-none focus-none px-4">Search</button>
-                                </div>
+                        <!-- Search Item Button -->
+                        <!-- Search Box -->
+                        <div
+                            class="bg-white rounded text-blue-600 font-semibold border border-blue-500 hover:border-blue-600 px-2 w-[350px] py-2">
+                            <form id="searchForm" class="flex w-full" onsubmit="return false;">
+                                <input type="text" id="searchQuery" placeholder="Search assets..."
+                                    class="border rounded h-8 px-2 w-full" onkeyup="fetchSearchResults()">
+                                <button type="button" onclick="fetchSearchResults()"
+                                    class="bg-blue-600 text-white px-4 ml-2 rounded">
+                                    Search
+                                </button>
+                            </form>
+                            <div id="searchResults"
+                                class="mt-4 w-[350px] rounded cursor-pointer text-gray-600 bg-white shadow-md p-2 absolute">
                             </div>
+                        </div>
 
+
+
+                        <div>
+                            <!-- search result -->
                         </div>
                     </div>
                 </div>
@@ -308,6 +349,31 @@ if (isset($_POST['delete_item'])) {
                 document.getElementById("editModal").classList.add("hidden");
             }
 
+
+
+            //search functionality js
+            function fetchSearchResults() {
+                const searchQuery = document.getElementById('searchQuery').value;
+                const resultsDiv = document.getElementById('searchResults');
+
+                if (searchQuery.trim() === '') {
+                    resultsDiv.innerHTML = ''; // Clear results if input is empty
+                    return;
+                }
+
+                // Create an AJAX request
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', 'index.php', true); // POST to the same file
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        resultsDiv.innerHTML = xhr.responseText; // Update results
+                    }
+                };
+
+                // Send the search query to the PHP code
+                xhr.send(`search_query=${encodeURIComponent(searchQuery)}`);
+            }
         </script>
 
 
