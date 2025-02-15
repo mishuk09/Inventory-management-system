@@ -8,6 +8,9 @@ include('./config/config.php'); // Ensure this is the correct path
 // Define success message variable
 $successMessage = "";
 
+//get email
+$admin_email = $_SESSION['admin'];
+
 // Check if form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Capture the form data and sanitize it
@@ -68,13 +71,26 @@ if (isset($_SESSION['successMessage'])) {
 
 <body class="bg-gray-50 font-sans antialiased">
 
+    <nav class="bg-blue-600 text-white p-4 shadow-md">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="admindashboard.php" class="text-3xl ">🏠︎</a>
+            <div>
+                <?php echo htmlspecialchars($admin_email); ?>
+
+                <a href="./auth/logout.php"
+                    class="bg-red-500 px-4 ms-2 py-2 rounded-md hover:bg-red-600 transition">Logout</a>
+            </div>
+        </div>
+    </nav>
     <!-- Main container -->
     <div class="max-w-7xl mx-auto px-6 sm:px-8 py-10">
 
         <!-- Home Button -->
         <div class="flex justify-between mt-2">
-            <a href="index.php" class="text-3xl text-gray-600">🏠︎</a>
-            <h1 class="text-3xl font-semibold text-center text-gray-600 mb-8">Add New Asset Item</h1>
+
+            <!-- <h1 class="text-3xl font-semibold text-center text-gray-600 mb-8">Add New Asset Item</h1> -->
+            <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">➕ Add New Asset Item</h1>
+
         </div>
 
         <!-- Success Message -->
@@ -177,6 +193,10 @@ if (isset($_SESSION['successMessage'])) {
 
     </div>
 
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white text-center py-4 mt-auto">
+        &copy; <?php echo date("Y"); ?> Inventory Management | All Rights Reserved
+    </footer>
 </body>
 
 </html>
