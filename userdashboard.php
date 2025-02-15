@@ -257,37 +257,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search_query'])) {
         }
 
 
-
-        
         function takeItem() {
-            let regNumber = document.getElementById("registration_number").value.trim();
-            if (regNumber === "") {
-                alert("Please enter a registration number.");
-                return;
-            }
+            const regNumber = document.getElementById("registration_number").value;
 
-            // Send AJAX request to fetch and store the asset
             fetch("process_take_item.php", {
                 method: "POST",
                 headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: `registration_number=${regNumber}`
+                body: "registration_number=" + encodeURIComponent(regNumber)
             })
-                .then(response => response.text()) // Change to text to see the full output
+                .then(response => response.json())
                 .then(data => {
-                    console.log("Raw Response:", data);
-                    try {
-                        let jsonData = JSON.parse(data);
-                        alert(jsonData.message);
-                        if (jsonData.success) {
-                            closeTakeItemModal();
-                        }
-                    } catch (error) {
-                        console.error("JSON Parsing Error:", error);
+                    if (data.success) {
+                        // Add new row to the issued items table dynamically
+                        const table = document.querySelector("tbody");
+                        const newRow = document.createElement("tr");
+                        newRow.classList.add("border-t");
+                        newRow.innerHTML = `
+                <td class="py-2 px-4 border">${data.counter}</td>
+                <td class="py-2 px-4 border">${data.asset_id}</td>
+                <td class="py-2 px-4 border">${data.serial_number}</td>
+                <td class="py-2 px-4 border">${data.registration_number}</td>
+                <td class="py-2 px-4 border">${data.category}</td>
+                <td class="py-2 px-4 border">${data.model}</td>
+                <td class="py-2 px-4 border">${data.issued_at}</td>
+                <td class="py-2 px-4 border">${data.due_date}</td>
+            `;
+                        table.appendChild(newRow);
+
+                        // Close the modal
+                        closeTakeItemModal();
+                    } else {
+                        alert("Failed to take item: " + data.message);
                     }
                 })
-                .catch(error => console.error("Fetch Error:", error));
-
+                .catch(error => console.error("Error:", error));
         }
+
 
 
 
