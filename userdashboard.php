@@ -256,16 +256,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search_query'])) {
             document.getElementById("takeItemModal").classList.add("hidden");
         }
 
-
         function takeItem() {
             const regNumber = document.getElementById("registration_number").value;
-
             fetch("process_take_item.php", {
                 method: "POST",
                 headers: { "Content-Type": "application/x-www-form-urlencoded" },
                 body: "registration_number=" + encodeURIComponent(regNumber)
             })
-                .then(response => response.json())
+                .then(response => response.text()) // First, get raw text response
+                .then(text => {
+                    console.log("Raw response:", text); // Debugging output
+                    return JSON.parse(text); // Then parse JSON
+                })
                 .then(data => {
                     if (data.success) {
                         // Add new row to the issued items table dynamically
