@@ -133,7 +133,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search_query'])) {
         </div>
     </nav>
     <!-- Main container -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="max-w-7xl min-h-screen mx-auto px-4 sm:px-6 lg:px-8 py-14">
 
 
         <!-- Heading -->
@@ -147,20 +147,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search_query'])) {
         <!-- Display Asset Data -->
         <div class="mt-10">
             <div>
-                <div class="flex justify-between">
+                <div class="flex justify-between mt-20">
                     <div>
                         <h2 class="text-xl font-semibold text-gray-800 mb-4">Asset List</h2>
                     </div>
                     <!-- Add Item Button -->
                     <div class="flex  gap-2 mb-2">
                         <div
-                            class=" bg-white rounded border border-1 border-blue-500 hover:border-2 duration-75 transition delay-75 hover:border-blue-600 px-4 w-[200px] py-2">
+                            class=" bg-white rounded border border-1 border-blue-500 hover:border-2 duration-75 transition delay-75 hover:border-blue-600 px-2 w-[200px] py-1">
                             <a href="returnitem.php" class=" text-blue-600  font-semibold ">
                                 <!-- Icon and Text -->
 
                                 <div class="flex text-center items-center justify-center">
 
-                                    <div class="text-xl me-2">
+                                    <div class="text-sm me-2">
                                         ↩️
                                     </div>
                                     <div>
@@ -171,13 +171,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search_query'])) {
                             </a>
                         </div>
                         <div
-                            class=" bg-white rounded border border-1 border-blue-500 hover:border-2 duration-75 transition delay-75 hover:border-blue-600 px-4 w-[200px] py-2">
+                            class=" bg-white rounded border border-1 border-blue-500 hover:border-2 duration-75 transition delay-75 hover:border-blue-600 px-2 w-[200px] py-1">
                             <a href="add_item.php" class=" text-blue-600  font-semibold ">
                                 <!-- Icon and Text -->
 
                                 <div class="flex text-center items-center justify-center">
 
-                                    <div class="text-xl me-2">
+                                    <div class="text-sm me-2">
                                         ➕
                                     </div>
                                     <div>
@@ -193,11 +193,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search_query'])) {
                         <!-- Search Item Button -->
                         <!-- Search Box -->
                         <div
-                            class="bg-white rounded text-blue-600 font-semibold border border-blue-500 hover:border-blue-600 px-2 w-[350px] py-2">
+                            class="bg-white rounded text-blue-600 font-semibold border border-blue-500 hover:border-blue-600 px-2 w-[350px] py-1">
 
                             <form id="searchForm" class="flex w-full" onsubmit="return false;">
                                 <input type="text" id="searchQuery" placeholder="Search assets..."
-                                    class="border rounded h-8 px-2 w-full" onkeyup="fetchSearchResults()">
+                                    class="border text-xs rounded h-6 px-2 w-full" onkeyup="fetchSearchResults()">
                                 <button type="button" onclick="fetchSearchResults()"
                                     class="bg-blue-600 text-white px-4 ml-2 rounded">
                                     Search
