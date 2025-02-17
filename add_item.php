@@ -5,6 +5,12 @@ session_start();
 // Include the database connection file
 include('./config/config.php'); // Ensure this is the correct path
 
+
+if (!isset($_SESSION['admin'])) {
+    header("Location: ./auth/adminlogin.php");
+    exit();
+}
+
 // Define success message variable
 $successMessage = "";
 
@@ -83,7 +89,7 @@ if (isset($_SESSION['successMessage'])) {
         </div>
     </nav>
     <!-- Main container -->
-    <div class="max-w-7xl mx-auto px-6 sm:px-8 py-10">
+    <div class="max-w-7xl mx-auto min-h-screen px-6 sm:px-8 py-10">
 
         <!-- Home Button -->
         <div class="flex justify-between mt-2">
